@@ -25,7 +25,7 @@
     "postbuild": "run-s util:*",
     "start": "node dist/servers",
     "deploy": "prisma migrate deploy && yarn start",
-    "prepare": "husky install"
+    "prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
   },
   "lint-staged": {
     "./{*,src/**/*}.{ts,prisma,graphql}": [
