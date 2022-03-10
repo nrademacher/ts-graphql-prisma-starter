@@ -13,12 +13,6 @@ export function validateUserSignup({ email, password, name }: ValidateUserSignup
         throw new Error('invalid_email_address')
     }
 
-    const [, emailHost] = email.split('@')
-
-    if (!emailHost.includes('itemis.')) {
-        throw new Error('signup_requires_itemis_email_address')
-    }
-
     if (!isStrongPassword(password)) {
         throw new Error('insufficient_password_strength')
     }

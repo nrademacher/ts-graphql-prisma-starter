@@ -80,18 +80,6 @@ describe('user creation', () => {
         ).rejects.toThrowError('invalid_email_address')
     })
 
-    it('rejects a user providing a non-itemis email', async () => {
-        await expect(
-            async () =>
-                await createUser({
-                    name: 'john doe',
-                    email: 'john@test.com',
-                    role: 'ADMIN',
-                    password: '123313Al;XXX',
-                })
-        ).rejects.toThrowError('signup_requires_itemis_email_address')
-    })
-
     it('rejects a user providing a weak password', async () => {
         await expect(
             async () =>
