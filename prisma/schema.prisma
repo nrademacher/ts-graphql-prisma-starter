@@ -1,5 +1,14 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
 model User {
-    id String @id @default(cuid()) @map("_id") @db.ObjectId
+    id String @id @default(auto()) @map("_id") @db.ObjectId
 
     name String @unique
 
@@ -11,9 +20,6 @@ model User {
     verified     Boolean
 
     role UserRoles @default(SOFTWARE_DEVELOPER)
-
-    projects      Project[] @relation(name: "ProjectToParticipants")
-    projectsOwned Project[] @relation(name: "ProjectToOwner")
 
     chatsSent     Chat[] @relation(name: "ChatToSender")
     chatsReceived Chat[] @relation(name: "ChatToRecipient")
@@ -37,14 +43,23 @@ enum UserRoles {
     SOFTWARE_DEVELOPER
 }
 
+enum ChatChannels {
+    ALL
+    PRIVATE
+}
+
 model Chat {
-    id String @id @default(cuid()) @map("_id") @db.ObjectId
+    id String @id @default(auto()) @map("_id") @db.ObjectId
 
     from   User   @relation(name: "ChatToSender", fields: [fromId], references: [id])
     fromId String
 
     to   User?   @relation(name: "ChatToRecipient", fields: [toId], references: [id])
     toId String?
+
+    channel ChatChannels @default(ALL)
+
+    message String
 
     @@map("chats")
 }

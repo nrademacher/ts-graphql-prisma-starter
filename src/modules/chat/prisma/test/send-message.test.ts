@@ -30,12 +30,12 @@ describe('messaging', () => {
 
         const message = await sendMessage({
             userId: id,
-            channel: 'CES',
+            channel: 'ALL',
             message: 'Hello, world!',
         })
 
         expect(message).toHaveProperty('message', 'Hello, world!')
-        expect(message).toHaveProperty('channel', 'CES')
+        expect(message).toHaveProperty('channel', 'ALL')
     })
 
     it('sends a message to a specified recipient if channel is PRIVATE', async () => {
